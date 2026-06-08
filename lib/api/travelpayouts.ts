@@ -42,3 +42,54 @@ function getFlag(code: string): string {
   };
   return flags[code] || '🌍';
 }
+// الدوال الموجودة بالفعل
+export function getPopularDestinations() {
+  // الكود الموجود بالفعل
+}
+
+// أضف هذه الدوال الجديدة
+export async function getFlightDeals(origin: string, months: number = 6) {
+  try {
+    const response = await fetch(
+      `https://api.travelpayouts.com/v1/prices/cheap?origin=${origin}&currency=USD`,
+      {
+        headers: {
+          'X-Api-Key': process.env.TRAVELPAYOUTS_API_KEY || '',
+        },
+      }
+    );
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch flight deals');
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching flight deals:', error);
+    return [];
+  }
+}
+
+export async function getHotels(city: string, checkIn: string, checkOut: string) {
+  try {
+    const response = await fetch(
+      `https://api.travelpayouts.com/v1/hotels/search?city=${city}&checkIn=${checkIn}&checkOut=${checkOut}`,
+      {
+        headers: {
+          'X-Api-Key': process.env.TRAVELPAYOUTS_API_KEY || '',
+        },
+      }
+    );
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch hotels');
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching hotels:', error);
+    return [];
+  }
+}
