@@ -1,1 +1,1 @@
-{"scripts":{"build":"next build"}}
+{"scripts": {"dev": "next dev"}}
